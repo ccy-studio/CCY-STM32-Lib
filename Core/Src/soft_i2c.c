@@ -38,9 +38,9 @@ void I2C_Start(void) {
     I2C_SDA_Out();
     I2C_SDA_H;
     I2C_SCL_H;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SDA_L;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     //最后拉低SCL数据线准备发送数据进行做准备
     I2C_SCL_L;
 }
@@ -51,21 +51,23 @@ void I2C_Start(void) {
 void I2C_Stop(void) {
     I2C_SDA_Out();
     I2C_SDA_L;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SCL_H;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SDA_H;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
 }
 
 /**
  *否应答位（NACK）：当发送方传送完8位时，发送方释放SDA，由接收方控制SDA，且SDA=1。
  */
 void I2C_NAck() {
+    I2C_SCL_L;
+    I2C_DelayUs(2);
     I2C_SDA_H;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SCL_H;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SCL_L;
 }
 
@@ -73,10 +75,12 @@ void I2C_NAck() {
  *应答位（ACK）：当发送方传送完8位时，发送方释放SDA(高电平释放)，由接收方控制SDA，且SDA=0；
  */
 void I2C_Ack() {
+    I2C_SCL_L;
+    I2C_DelayUs(2);
     I2C_SDA_L;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SCL_H;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     I2C_SCL_L;
     I2C_SDA_H; //释放SDA总线
 }
@@ -86,15 +90,22 @@ void I2C_Ack() {
  * 检测应答信号 发送方释放SDA(高电平释放)，由接收方控制SDA
  * @return  1成功,0失败
  */
-int I2C_CheckAck() {
-    int ack = 0;
+uint8_t I2C_CheckAck() {
+    uint8_t ack = 0, errorRetry = 3;
     I2C_SDA_H;
     I2C_DelayUs(1);
     I2C_SDA_In();
     I2C_DelayUs(1);
     I2C_SCL_H;
-    I2C_DelayUs(2);
-    if (I2C_Read_SDA == GPIO_PIN_RESET) {
+    I2C_DelayUs(1);
+    while (I2C_Read_SDA) {
+        if (errorRetry <= 0) {
+            break;
+        }
+        delay_us(1);
+        errorRetry--;
+    }
+    if (errorRetry) {
         ack = 1;
     }
     I2C_SCL_L;
@@ -109,16 +120,17 @@ int I2C_CheckAck() {
 int I2C_Send(uint8_t data) {
     I2C_SDA_Out();
     I2C_SCL_L;
-    I2C_DelayUs(1);
+    I2C_DelayUs(2);
     for (int i = 0; i < 8; i++) {
         if (data & 0x80) {
             I2C_SDA_H;
         } else {
             I2C_SDA_L;
         }
-        I2C_DelayUs(1);
+        I2C_DelayUs(2);
         I2C_SCL_H;
-        I2C_DelayUs(1);
+        I2C_DelayUs(2);
+        I2C_SCL_L;
         data <<= 1;
     }
     return I2C_CheckAck();
@@ -135,11 +147,12 @@ uint8_t I2C_Receive(int ack) {
     for (int i = 0; i < 8; i++) {
         I2C_SCL_L;
         I2C_DelayUs(2);
+        I2C_SCL_H;
         receiveData <<= 1;
         if (I2C_Read_SDA == GPIO_PIN_SET) {
-            receiveData = 1;
+            receiveData |= 0x01;
         }
-        I2C_DelayUs(2);
+        I2C_DelayUs(1);
     }
     ack ? I2C_Ack() : I2C_NAck();
     return receiveData;

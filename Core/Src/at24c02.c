@@ -2,7 +2,6 @@
 // Created by 83503 on 2023/4/20.
 //
 #include "at24c02.h"
-#include "soft_i2c.h"
 
 void C02_Init(void) {
     I2C_Init();

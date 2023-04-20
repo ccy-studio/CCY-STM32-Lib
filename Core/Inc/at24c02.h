@@ -6,8 +6,10 @@
 #define CCY_STM32_LIBRARY_AT24C02_H
 
 #include "main.h"
+#include "delay.h"
+#include "soft_i2c.h"
 
-#define C02_Delay(us) HAL_Delay(us)
+#define C02_Delay(ms) delay_ms(ms)
 
 void C02_Init(void);
 int C02_Write(uint8_t address,uint8_t data);
