@@ -60,6 +60,14 @@ void Error_Handler(void);
 #define KEY_WKUP_Pin GPIO_PIN_0
 #define KEY_WKUP_GPIO_Port GPIOA
 #define KEY_WKUP_EXTI_IRQn EXTI0_IRQn
+#define EPD_CS_Pin GPIO_PIN_4
+#define EPD_CS_GPIO_Port GPIOC
+#define EPD_DC_Pin GPIO_PIN_5
+#define EPD_DC_GPIO_Port GPIOC
+#define EPD_RST_Pin GPIO_PIN_0
+#define EPD_RST_GPIO_Port GPIOB
+#define EPD_BUSY_Pin GPIO_PIN_1
+#define EPD_BUSY_GPIO_Port GPIOB
 #define IIC_SCL_Pin GPIO_PIN_6
 #define IIC_SCL_GPIO_Port GPIOB
 #define IIC_SDA_Pin GPIO_PIN_7

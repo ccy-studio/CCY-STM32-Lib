@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -25,6 +26,9 @@
 /* USER CODE BEGIN Includes */
 #include "at24c02.h"
 #include "delay.h"
+#include "aht20.h"
+//墨水屏驱动
+#include "EPD_Test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,21 +90,26 @@ int main(void) {
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_USART1_UART_Init();
+    MX_SPI1_Init();
     /* USER CODE BEGIN 2 */
     printf("Hello\n");
-    delay_us(1000 * 1000);
+    delay_s(1);
     printf("Hello2\n");
     C02_Init();
-    printf("State %d\n", C02_Write(100, 'C'));
+//    printf("State %d\n", C02_Write(100, 'C'));
+    aht20_init();
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
-    uint8_t dat = 0;
+    uint8_t dat;
+    double temp, humidity;
     while (1) {
         delay_s(1);
         dat = C02_Read(100);
-        printf("打印ERRPOM数据: %c \n", dat);
+        printf("打印EEPROM数据: %c \n", dat);
+        aht20_read(&temp, &humidity);
+        printf("湿度:%f 温度:%f \n\n", humidity, temp);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -157,6 +166,8 @@ void Error_Handler(void) {
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
+        delay_s(1);
+        printf("系统报错\n");
     }
     /* USER CODE END Error_Handler_Debug */
 }

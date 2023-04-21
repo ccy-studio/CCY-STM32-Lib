@@ -108,6 +108,9 @@ uint8_t I2C_CheckAck() {
     if (errorRetry) {
         ack = 1;
     }
+    if (!ack) {
+        I2C_Stop();
+    }
     I2C_SCL_L;
     return ack;
 }
@@ -115,7 +118,6 @@ uint8_t I2C_CheckAck() {
 /**
  * 当SCL由0向1跳变时，由发送方控制SDA，此时SDA为有效数据，不可随意改变SDA；当SCL保持为0时，SDA上的数据可随意改变；
  * @param data  数据
- * @param ackState 发完数据ACK未的状态
  */
 int I2C_Send(uint8_t data) {
     I2C_SDA_Out();
