@@ -68,9 +68,11 @@ void Error_Handler(void);
 #define EPD_RST_GPIO_Port GPIOB
 #define EPD_BUSY_Pin GPIO_PIN_1
 #define EPD_BUSY_GPIO_Port GPIOB
-#define IIC_SCL_Pin GPIO_PIN_6
+//#define IIC_SCL_Pin GPIO_PIN_6
+#define IIC_SCL_Pin GPIO_PIN_2
 #define IIC_SCL_GPIO_Port GPIOB
-#define IIC_SDA_Pin GPIO_PIN_7
+//#define IIC_SDA_Pin GPIO_PIN_7
+#define IIC_SDA_Pin GPIO_PIN_1
 #define IIC_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */

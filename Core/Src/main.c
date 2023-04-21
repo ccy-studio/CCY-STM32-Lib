@@ -24,11 +24,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "at24c02.h"
+//#include "at24c02.h"
 #include "delay.h"
 #include "aht20.h"
 //墨水屏驱动
-#include "EPD_Test.h"
+//#include "EPD_Test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,21 +95,22 @@ int main(void) {
     printf("Hello\n");
     delay_s(1);
     printf("Hello2\n");
-    C02_Init();
+//    C02_Init();
 //    printf("State %d\n", C02_Write(100, 'C'));
     aht20_init();
+
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     uint8_t dat;
-    double temp, humidity;
+    float h, t;
     while (1) {
         delay_s(1);
-        dat = C02_Read(100);
-        printf("打印EEPROM数据: %c \n", dat);
-        aht20_read(&temp, &humidity);
-        printf("湿度:%f 温度:%f \n\n", humidity, temp);
+//        dat = C02_Read(100);
+//        printf("打印EEPROM数据: %c \n", dat);
+        aht20_read(&h, &t);
+        printf("湿度:%.1f 温度:%.1f \n\n", h, t);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
