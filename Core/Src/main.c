@@ -26,9 +26,9 @@
 /* USER CODE BEGIN Includes */
 //#include "at24c02.h"
 #include "delay.h"
-#include "aht20.h"
+//#include "aht20.h"
 //墨水屏驱动
-//#include "EPD_Test.h"
+#include "EPD_Test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,20 +97,23 @@ int main(void) {
     printf("Hello2\n");
 //    C02_Init();
 //    printf("State %d\n", C02_Write(100, 'C'));
-    aht20_init();
+//    aht20_init();
 
+
+    EPD_test();
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
-    uint8_t dat;
-    float h, t;
+//    uint8_t dat;
+//    float h, t;
     while (1) {
         delay_s(1);
+        HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 //        dat = C02_Read(100);
 //        printf("打印EEPROM数据: %c \n", dat);
-        aht20_read(&h, &t);
-        printf("湿度:%.1f 温度:%.1f \n\n", h, t);
+//        aht20_read(&h, &t);
+//        printf("湿度:%.1f 温度:%.1f \n\n", h, t);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */

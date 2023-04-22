@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED1_Pin GPIO_PIN_5
+#define LED1_GPIO_Port GPIOE
 #define KEY_WKUP_Pin GPIO_PIN_0
 #define KEY_WKUP_GPIO_Port GPIOA
 #define KEY_WKUP_EXTI_IRQn EXTI0_IRQn
@@ -68,11 +70,9 @@ void Error_Handler(void);
 #define EPD_RST_GPIO_Port GPIOB
 #define EPD_BUSY_Pin GPIO_PIN_1
 #define EPD_BUSY_GPIO_Port GPIOB
-//#define IIC_SCL_Pin GPIO_PIN_6
-#define IIC_SCL_Pin GPIO_PIN_2
+#define IIC_SCL_Pin GPIO_PIN_6
 #define IIC_SCL_GPIO_Port GPIOB
-//#define IIC_SDA_Pin GPIO_PIN_7
-#define IIC_SDA_Pin GPIO_PIN_1
+#define IIC_SDA_Pin GPIO_PIN_7
 #define IIC_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */

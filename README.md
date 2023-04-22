@@ -7,3 +7,4 @@ Stm32个人工程常用库
 - [Delay](Core%2FInc%2Fdelay.h) SysTick延时函数工具
 - [usart.c](Core%2FSrc%2Fusart.c) printf重定向
 - [AHT20](Core%2FInc%2Faht20.h) AHT20温湿度传感器
+- [EPD_Test](epd%2Fexamples%2FEPD_Test.h) 自用墨水屏驱动库 

@@ -30,8 +30,7 @@
 #include "EPD_Test.h"
 #include "EPD_2IN13BC.h"
 
-int EPD_test(void)
-{
+int EPD_test(void) {
     printf("EPD_2IN13BC_test Demo\r\n");
     DEV_Module_Init();
 
@@ -42,12 +41,13 @@ int EPD_test(void)
 
     //Create a new image cache named IMAGE_BW and fill it with white
     UBYTE *BlackImage, *RYImage; // Red or Yellow
-    UWORD Imagesize = ((EPD_2IN13BC_WIDTH % 8 == 0)? (EPD_2IN13BC_WIDTH / 8 ): (EPD_2IN13BC_WIDTH / 8 + 1)) * EPD_2IN13BC_HEIGHT;
-    if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
+    UWORD Imagesize =
+            ((EPD_2IN13BC_WIDTH % 8 == 0) ? (EPD_2IN13BC_WIDTH / 8) : (EPD_2IN13BC_WIDTH / 8 + 1)) * EPD_2IN13BC_HEIGHT;
+    if ((BlackImage = (UBYTE *) malloc(Imagesize)) == NULL) {
         printf("Failed to apply for black memory...\r\n");
         return -1;
     }
-    if((RYImage = (UBYTE *)malloc(Imagesize)) == NULL) {
+    if ((RYImage = (UBYTE *) malloc(Imagesize)) == NULL) {
         printf("Failed to apply for red memory...\r\n");
         return -1;
     }
@@ -61,7 +61,7 @@ int EPD_test(void)
     Paint_SelectImage(RYImage);
     Paint_Clear(WHITE);
 
-#if 1   // show image for array    
+#if 1   // show image for array
     printf("show image for array\r\n");
 //    EPD_2IN13BC_Display(gImage_2in13b_b, gImage_2in13b_r);
 
@@ -81,7 +81,7 @@ int EPD_test(void)
     Paint_DrawLine(50, 70, 20, 100, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     Paint_DrawRectangle(60, 70, 90, 100, BLACK, DOT_PIXEL_1X1, DRAW_FILL_FULL);
     Paint_DrawCircle(125, 85, 15, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
-    Paint_DrawString_CN(5, 15, "你好abc", &Font12CN, WHITE, BLACK);
+    Paint_DrawString_CN(5, 15, "abc", &Font12CN, WHITE, BLACK);
 
     //2.Draw red image
     printf("Draw red image\r\n");
@@ -93,7 +93,7 @@ int EPD_test(void)
     Paint_DrawLine(110, 85, 140, 85, RED, DOT_PIXEL_1X1, LINE_STYLE_DOTTED);
     Paint_DrawRectangle(20, 70, 50, 100, RED, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
     Paint_DrawCircle(165, 85, 15, RED, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(5, 0, "waveshare Electronics", &Font12, BLACK, WHITE);
+    Paint_DrawString_EN(5, 0, "Chenzedeng CCY-Studio", &Font16, WHITE, BLACK);
     Paint_DrawNum(5, 50, 987654321, &Font16, WHITE, RED);
 
     printf("EPD_Display\r\n");
@@ -114,7 +114,7 @@ int EPD_test(void)
     // close 5V
     printf("close 5V, Module enters 0 power consumption ...\r\n");
     DEV_Module_Exit();
-    
+
     return 0;
 }
 
